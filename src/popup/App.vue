@@ -6,21 +6,21 @@
 
 <script lang="ts">
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      message: 'Hey, it is the Popup page running on Vue.js!',
+      message: "Hey, it is the Popup page running on Vue.js!",
     };
   },
 };
 </script>
 
 <style scoped lang="scss">
-  .container {
-    text-align: center;
+.container {
+  text-align: center;
 
-    h1 {
-      font-weight: 600;
-    }
+  h1 {
+    font-weight: 600;
   }
+}
 </style>

@@ -6,23 +6,23 @@
 
 <script lang="ts">
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      message: 'Hey, it is the Options page running on Vue.js!',
+      message: "Hey, it is the Options page running on Vue.js!",
     };
   },
 };
 </script>
 
 <style scoped lang="scss">
-  .container {
-    width: 600px;
-    margin: 50px auto;
-    text-align: center;
+.container {
+  width: 600px;
+  margin: 50px auto;
+  text-align: center;
 
-    h1 {
-      font-style: italic;
-    }
+  h1 {
+    font-style: italic;
   }
+}
 </style>
