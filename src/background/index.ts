@@ -4,7 +4,7 @@ console.log(
 
 setInterval(function() {
   check();
-}, 2000);
+}, 5000);
 function check() {
   // Fetch the price continuously in background
   fetch("https://www.reserved.com/pl/pl/2061l-39x/klapki-k-re")
