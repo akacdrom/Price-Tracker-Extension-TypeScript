@@ -4,7 +4,7 @@
 //createApp(App).mount('#app');
 
 const greeter: HTMLElement = document.getElementById("app") as HTMLElement;
-greeter.innerText = "adasd";
+greeter.innerText = "N/A";
 
 // Update the relevant fields with the new data.
 const setDOMInfo = (info: { app: string }) => {
@@ -31,3 +31,4 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   );
 });
+
