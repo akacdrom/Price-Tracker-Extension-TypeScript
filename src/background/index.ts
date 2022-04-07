@@ -1,3 +1,4 @@
+import { template } from "@babel/core";
 console.log(
   "Hey! This code is executed in the background, you will not see it in the browser console..."
 );
@@ -6,40 +7,54 @@ setInterval(function() {
   check();
 }, 5000);
 function check() {
-  // Fetch the price continuously in background
-  fetch("https://www.reserved.com/pl/pl/2061l-39x/klapki-k-re")
-    .then(function(response) {
-      switch (response.status) {
-        // status "OK"
-        case 200:
-          return response.text();
-        // status "Not Found"
-        case 404:
-          throw response;
-      }
-    })
-    .then(function(template) {
-      // Parse the price from fetched HTML template
-      const value = template!.lastIndexOf("price:amount");
-      let parsedValue = template!.substring(value + 23, value + 23 + 10).trim();
-      parsedValue = parsedValue.substring(0, parsedValue.indexOf('">'));
-      console.log(parsedValue);
-      console.log(parsedValue.length);
+  //getPrice(getHtml(""));
 
-      // Sample HTML page of the "reserved.com";
-      // <meta property="og:title" content="Klapki z imitacji skóry, RESERVED, 2061L-39X">
-      // <meta property="og:description" content="Klapki z imitacji skóry, , rÓŻowy, RESERVED">
-      // <meta property="og:type" content="product">
-      // <meta property="product:original_price:amount" content="59.99">
-      // <meta property="product:original_price:currency" content="PLN">
-      // <meta property="product:price:amount" content="59.99">
-      // <meta property="product:price:currency" content="PLN">
-      // <meta property="product:retailer_part_no" content="2061L-39X">
-    })
-    .catch(function(response) {
-      // "Not Found"
-      console.log(response.statusText);
-    });
+  getHtml("https://www.reserved.com/pl/pl/2061l-39x/klapki-k-re");
+
+  // Fetch the price continuously in background
+  function getHtml(url: string) {
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.text();
+      })
+      .then(parsePrice);
+  }
+
+  function parsePrice(template: string) {
+    // Parse the price from fetched HTML template
+    let price = template
+      .substring(
+        template.lastIndexOf("price:amount") + 23,
+        template.lastIndexOf("price:amount") + 23 + 10
+      )
+      .trim();
+    price = price.substring(0, price.indexOf('">'));
+    console.log(price);
+    console.log(price.length);
+    console.log("------");
+    // make a new parser
+    const parser = new DOMParser();
+    // convert html string into DOM
+    const document = parser.parseFromString(template, "text/html");
+
+    console.log(document.body.innerHTML);
+
+    // Change this to div.childNodes to support multiple top-level nodes.
+    //return div.firstChild;
+
+    // Sample HTML page of the "reserved.com";
+    // <meta property="og:title" content="Klapki z imitacji skóry, RESERVED, 2061L-39X">
+    // <meta property="og:description" content="Klapki z imitacji skóry, , rÓŻowy, RESERVED">
+    // <meta property="og:type" content="product">
+    // <meta property="product:original_price:amount" content="59.99">
+    // <meta property="product:original_price:currency" content="PLN">
+    // <meta property="product:price:amount" content="59.99">
+    // <meta property="product:price:currency" content="PLN">
+    // <meta property="product:retailer_part_no" content="2061L-39X">
+  }
 }
 
 chrome.runtime.onMessage.addListener((msg, sender) => {
