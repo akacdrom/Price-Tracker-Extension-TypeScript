@@ -1,16 +1,12 @@
-import { template } from "@babel/core";
 console.log(
   "Hey! This code is executed in the background, you will not see it in the browser console..."
 );
 
 setInterval(function() {
   check();
-}, 5000);
+}, 4000);
 function check() {
-  //getPrice(getHtml(""));
-
   getHtml("https://www.reserved.com/pl/pl/2061l-39x/klapki-k-re");
-
   // Fetch the price continuously in background
   function getHtml(url: string) {
     fetch(url)
@@ -23,24 +19,20 @@ function check() {
       .then(parsePrice);
   }
 
-  function parsePrice(template: string) {
+  function parsePrice(rawHtml: string) {
     // Parse the price from fetched HTML template
-    let price = template
+    let price = rawHtml
       .substring(
-        template.lastIndexOf("price:amount") + 23,
-        template.lastIndexOf("price:amount") + 23 + 10
+        rawHtml.lastIndexOf("price:amount") + 23,
+        rawHtml.lastIndexOf("price:amount") + 23 + 10
       )
       .trim();
     price = price.substring(0, price.indexOf('">'));
     console.log(price);
     console.log(price.length);
     console.log("------");
-    // make a new parser
-    const parser = new DOMParser();
-    // convert html string into DOM
-    const document = parser.parseFromString(template, "text/html");
 
-    console.log(document.body.innerHTML);
+    // make a new parser
 
     // Change this to div.childNodes to support multiple top-level nodes.
     //return div.firstChild;
