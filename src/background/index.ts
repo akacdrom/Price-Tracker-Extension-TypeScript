@@ -2,6 +2,12 @@ console.log(
   "Hey! This code is executed in the background, you will not see it in the browser console..."
 );
 
+//Background, is responsible for checking the price of product continuously in the background
+//I used "document.querySelector()" method inside of content to catch price "div".
+//But using same method in here is impossible.
+//I tried to use "dom-parser" and "jsdom" to convert string html to a readable html form to get the price "div"
+//But they didn't work or broke the entire application.
+
 setInterval(function() {
   check();
 }, 4000);
@@ -33,9 +39,7 @@ function check() {
     console.log("------");
 
     // make a new parser
-
-    // Change this to div.childNodes to support multiple top-level nodes.
-    //return div.firstChild;
+    
 
     // Sample HTML page of the "reserved.com";
     // <meta property="og:title" content="Klapki z imitacji skóry, RESERVED, 2061L-39X">
