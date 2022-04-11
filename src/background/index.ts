@@ -1,3 +1,5 @@
+import { parse } from "node-html-parser";
+
 console.log(
   "Hey! This code is executed in the background, you will not see it in the browser console..."
 );
@@ -5,8 +7,7 @@ console.log(
 //Background, is responsible for checking the price of product continuously in the background
 //I used "document.querySelector()" method inside of content to catch price "div".
 //But using same method in here is impossible.
-//I tried to use "dom-parser" and "jsdom" to convert string html to a readable html form to get the price "div"
-//But they didn't work or broke the entire application.
+//node-html-parser used to make element queries to html object for get the price.
 
 setInterval(function() {
   check();
@@ -24,19 +25,31 @@ function check() {
       })
       .then(parsePrice);
   }
-
   function parsePrice(rawHtml: string) {
-    // Parse the price from fetched HTML template
-    let price = rawHtml
-      .substring(
-        rawHtml.lastIndexOf("price:amount") + 23,
-        rawHtml.lastIndexOf("price:amount") + 23 + 10
-      )
-      .trim();
-    price = price.substring(0, price.indexOf('">'));
-    console.log(price);
-    console.log(price.length);
-    console.log("------");
+    //Convert the raw html string to the simplified DOM tree, with element query support using node-html-parser library
+    const domTreeHtml = parse(rawHtml);
+    const priceMetaTag = domTreeHtml.querySelector(
+      "meta[property ='product:price:amount']"
+    );
+    if (priceMetaTag !== null) {
+      const price = parseFloat(priceMetaTag.getAttribute("content") as string) as number ;
+      console.log(price);
+      
+    } else {
+      console.log(
+        "I couldn't find price, Maybe html elements is changed by server."
+      );
+    }
+
+    //My previous way to parse price from string value;
+    // let price = rawHtml
+    //   .substring(
+    //     rawHtml.lastIndexOf("price:amount") + 23,
+    //     rawHtml.lastIndexOf("price:amount") + 23 + 10
+    //   )
+    //   .trim();
+    // price = price.substring(0, price.indexOf('">'));
+    // console.log(price);
 
     // Sample HTML page of the "reserved.com";
     // <meta property="og:title" content="Klapki z imitacji skóry, RESERVED, 2061L-39X">
