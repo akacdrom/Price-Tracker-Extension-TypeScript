@@ -38,9 +38,6 @@ function check() {
     console.log(price.length);
     console.log("------");
 
-    // make a new parser
-    
-
     // Sample HTML page of the "reserved.com";
     // <meta property="og:title" content="Klapki z imitacji skóry, RESERVED, 2061L-39X">
     // <meta property="og:description" content="Klapki z imitacji skóry, , rÓŻowy, RESERVED">
