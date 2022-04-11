@@ -7,7 +7,7 @@ console.log(
 //Background, is responsible for checking the price of product continuously in the background
 //I used "document.querySelector()" method inside of content to catch price "div".
 //But using same method in here is impossible.
-//node-html-parser used to make element queries to html object for get the price.
+//"node-html-parser used" to make element queries to html object for get the price.
 
 setInterval(function() {
   check();
@@ -32,9 +32,10 @@ function check() {
       "meta[property ='product:price:amount']"
     );
     if (priceMetaTag !== null) {
-      const price = parseFloat(priceMetaTag.getAttribute("content") as string) as number ;
+      const price = parseFloat(
+        priceMetaTag.getAttribute("content") as string
+      ) as number;
       console.log(price);
-      
     } else {
       console.log(
         "I couldn't find price, Maybe html elements is changed by server."
