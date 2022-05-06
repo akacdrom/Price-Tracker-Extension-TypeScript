@@ -3,13 +3,16 @@
 
 //createApp(App).mount('#app');
 
-//default value for price is N/A
+// get DOM element
 const greeter: HTMLElement = document.getElementById("app") as HTMLElement;
-greeter.innerText = "N/A";
+const greeter2: HTMLElement = document.getElementById(
+  "discount"
+) as HTMLElement;
 
 // Update the relevant fields with the new data.
-const setDOMInfo = (info: { app: string }) => {
+const setDOMInfo = (info: { app: string; discount: string }) => {
   greeter.innerText = info.app;
+  greeter2.innerText = info.discount;
 };
 
 // Once the DOM is ready...
