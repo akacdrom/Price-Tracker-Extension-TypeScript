@@ -36,6 +36,7 @@ function check() {
         priceMetaTag.getAttribute("content") as string
       ) as number;
       console.log(price);
+      console.log(price + 10);
     } else {
       console.log(
         "I couldn't find price, Maybe html elements is changed by server."
