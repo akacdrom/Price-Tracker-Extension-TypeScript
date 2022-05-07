@@ -5,6 +5,16 @@ import { parse } from "node-html-parser";
 //But using same method in here is impossible.
 //"node-html-parser used" to make element queries to html object for get the price.
 
+////Communication with popup script
+chrome.runtime.onConnect.addListener(function(port) {
+  console.log("Connected .....");
+  port.onMessage.addListener(function(msg) {
+    console.log("message recieved: " + msg);
+    port.postMessage("Hi Popup.js");
+  });
+});
+
+//Interval to make a GET request to server in every 4seconds
 setInterval(function() {
   check();
 }, 4000);

@@ -19,12 +19,12 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     //  should be equivalent to jquery's `$(...)`.)
     domInfo = {
       app: "Price: " + price,
+      other: "We are in the Page",
     };
   } else {
-    console.log("XXXXXXX");
-
     domInfo = {
       app: "N/A",
+      other: "",
     };
   }
   // Directly respond to the sender (popup),

@@ -5,15 +5,22 @@
 
 // get DOM element
 const greeter: HTMLElement = document.getElementById("app") as HTMLElement;
-const greeter2: HTMLElement = document.getElementById(
-  "discount"
-) as HTMLElement;
+const greeter2: HTMLElement = document.getElementById("other") as HTMLElement;
 
 // Update the relevant fields with the new data.
-const setDOMInfo = (info: { app: string; discount: string }) => {
+const setDOMInfo = (info: { app: string; other: string }) => {
   greeter.innerText = info.app;
-  greeter2.innerText = info.discount;
+  greeter2.innerText = info.other;
 };
+
+//Communication with background script
+const port = chrome.runtime.connect({
+  name: "Sample Communication",
+});
+port.postMessage("Hi BackGround");
+port.onMessage.addListener(function(msg) {
+  console.log("message recieved: " + msg);
+});
 
 // Once the DOM is ready...
 window.addEventListener("DOMContentLoaded", () => {
