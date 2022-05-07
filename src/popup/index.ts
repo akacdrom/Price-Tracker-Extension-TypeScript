@@ -4,26 +4,25 @@
 //createApp(App).mount('#app');
 
 // get DOM element
-const greeter: HTMLElement = document.getElementById("app") as HTMLElement;
-const greeter2: HTMLElement = document.getElementById("other") as HTMLElement;
+const priceGreeter: HTMLElement = document.getElementById(
+  "price"
+) as HTMLElement;
+const otherGreeter: HTMLElement = document.getElementById(
+  "other"
+) as HTMLElement;
+const discountGreeter: HTMLElement = document.getElementById(
+  "discount"
+) as HTMLElement;
 
-// Update the relevant fields with the new data.
-const setDOMInfo = (info: { app: string; other: string }) => {
-  greeter.innerText = info.app;
-  greeter2.innerText = info.other;
+// update the relevant fields with the new data.
+const setDOMInfo = (info: { priceValue: string; other: string }) => {
+  priceGreeter.innerText = info.priceValue;
+  otherGreeter.innerText = info.other;
 };
 
-//Communication with background script
-const port = chrome.runtime.connect({
-  name: "Sample Communication",
-});
-port.postMessage("Hi BackGround");
-port.onMessage.addListener(function(msg) {
-  console.log("message recieved: " + msg);
-});
-
-// Once the DOM is ready...
+// once the DOM is ready...
 window.addEventListener("DOMContentLoaded", () => {
+  //communication with content script
   // ...query for the active tab...
   chrome.tabs.query(
     {
@@ -35,7 +34,10 @@ window.addEventListener("DOMContentLoaded", () => {
         // ...and send a request for the DOM info...
         chrome.tabs.sendMessage(
           tabs[0].id,
-          { from: "popup", subject: "DOMInfo" },
+          {
+            from: "popup",
+            subject: "DOMInfo",
+          },
           // ...also specifying a callback to be called
           //    from the receiving end (content script).
           setDOMInfo
@@ -43,4 +45,15 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   );
+  //communication with background script
+  const port = chrome.runtime.connect({
+    name: "Sample Communication",
+  });
+  //send message
+  port.postMessage("Hi BackGround");
+  //receive message
+  port.onMessage.addListener(function(msg) {
+    //console.log("message received: " + msg);
+    discountGreeter.innerText = msg;
+  });
 });

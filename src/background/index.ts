@@ -1,20 +1,13 @@
 import { parse } from "node-html-parser";
 
-//Background, is responsible for checking the price of product continuously in the background
-//I used "document.querySelector()" method inside of content to catch price "div".
-//But using same method in here is impossible.
+//background, is responsible for checking the price of product continuously in the background
+//i used "document.querySelector()" method inside of content to catch price "div".
+//but using same method in here is impossible.
 //"node-html-parser used" to make element queries to html object for get the price.
 
-////Communication with popup script
-chrome.runtime.onConnect.addListener(function(port) {
-  console.log("Connected .....");
-  port.onMessage.addListener(function(msg) {
-    console.log("message recieved: " + msg);
-    port.postMessage("Hi Popup.js");
-  });
-});
+let price: number;
 
-//Interval to make a GET request to server in every 4seconds
+//interval to make a GET request to server in every 4seconds
 setInterval(function() {
   check();
 }, 4000);
@@ -29,24 +22,34 @@ function check() {
         }
         return response.text();
       })
-      .then(parsePrice);
+      .then(parsePrice)
+      .then(sendPriceToPopup);
   }
   function parsePrice(rawHtml: string) {
-    //Convert the raw html string to the simplified DOM tree, with element query support using node-html-parser library
+    //convert the raw html string to the simplified DOM tree, with element query support using node-html-parser library
     const domTreeHtml = parse(rawHtml);
     const priceMetaTag = domTreeHtml.querySelector(
       "meta[property ='product:price:amount']"
     );
     if (priceMetaTag !== null) {
-      const price = parseFloat(
+      price = parseFloat(
         priceMetaTag.getAttribute("content") as string
       ) as number;
       console.log(price);
-      console.log(price + 10);
     } else {
       console.log(
         "I couldn't find price, Maybe html elements is changed by server."
       );
     }
+  }
+  function sendPriceToPopup() {
+    //communication with popup script
+    chrome.runtime.onConnect.addListener(function(port) {
+      console.log("Connected ...");
+      port.onMessage.addListener(function(msg) {
+        console.log("message received: " + msg);
+        port.postMessage("The price of the tracked product: " + price);
+      });
+    });
   }
 }

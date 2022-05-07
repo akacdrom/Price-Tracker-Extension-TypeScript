@@ -18,12 +18,12 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     // (For your specific requirements `document.querySelectorAll(...)`
     //  should be equivalent to jquery's `$(...)`.)
     domInfo = {
-      app: "Price: " + price,
+      priceValue: "Price: " + price,
       other: "We are in the Page",
     };
   } else {
     domInfo = {
-      app: "N/A",
+      priceValue: "Price not found :/",
       other: "",
     };
   }
