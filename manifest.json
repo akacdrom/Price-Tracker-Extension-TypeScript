@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension Starter",
+  "name": "Price Tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A chromium extension developed to monitor the prices of products from certain online stores and inform the user.",
   "icons": {
     "16": "assets/icons/icon16.png",
     "48": "assets/icons/icon48.png",
@@ -15,7 +15,7 @@
       "32": "assets/icons/icon32.png"
     },
     "default_popup": "popup/index.html",
-    "default_title": "Starter Popup"
+    "default_title": "Price Tracker Popup"
   },
   "content_scripts": [
     {
