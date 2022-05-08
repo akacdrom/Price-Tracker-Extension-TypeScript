@@ -47,7 +47,7 @@ function check() {
     chrome.runtime.onConnect.addListener(function(port) {
       console.log("Connected ...");
       port.onMessage.addListener(function(msg) {
-        console.log("message received: " + msg);
+        console.log("message received from popup: " + msg);
         port.postMessage("The price of the tracked product: " + price);
       });
     });

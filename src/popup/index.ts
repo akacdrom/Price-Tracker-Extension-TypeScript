@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
   port.postMessage("Hi BackGround");
   //receive message
   port.onMessage.addListener(function(msg) {
-    //console.log("message received: " + msg);
+    console.log("message received from background: " + msg);
     discountGreeter.innerText = msg;
   });
 });
