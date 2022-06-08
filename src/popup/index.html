@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      body {
-        white-space: normal;
-        min-height: 100vh;
-        min-width: 100vh;
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" type="text/css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Popup</title>
   </head>
   <body>
-    <script type="module" src="./index.ts"></script>
-    <h1 id="price"></h1>
-    <h1 id="other"></h1>
-    <h1 id="discount"></h1>
+    <div>
+      <h1 id="productName"></h1>
+      <h2 id="productPrice"></h2>
+      <h2 id="productDiscount"></h2>
+      <h3 id="productURL"></h3>
+      <h3 id="status"></h3>
+      <button class="addProduct" id="addProduct">Track the Product</button>
+      <button class="deleteProduct" id="deleteProduct">
+        Delete the Product
+      </button>
+      <script type="module" src="./index.ts"></script>
+    </div>
   </body>
 </html>

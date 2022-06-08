@@ -16,7 +16,7 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "test": "jest -c ./config/jest.config.js"
   },
-  "author": "Yuri Drabik <yurist38@mail.ru>",
+  "author": "Ahmet Akkus",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.5",

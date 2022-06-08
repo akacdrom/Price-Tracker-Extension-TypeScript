@@ -1,0 +1,71 @@
+body {
+    white-space: normal;
+    min-height: 100vh;
+    min-width: 100vh;
+    text-align: center;
+    background-color: #0d1117;
+}
+
+div {
+    border-radius: 0px;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    border: 0% solid;
+    padding: 2%;
+    border-radius: 30px;
+    background: #332f4f;
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    border: 0% solid;
+    padding: 2%;
+    border-radius: 30px;
+    background: #28253d;
+}
+
+h3 {
+    text-align: center;
+    color: #fff;
+    border: 0% solid;
+    padding: 2%;
+    border-radius: 30px;
+    background: #28253d;
+}
+
+button {
+    width: 50%;
+    
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 1.4%;
+    margin: 1% 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.addProduct{
+    background-color: #31b92f;
+}
+.addProduct:hover{
+    background-color: #3cde3f;
+}
+
+.deleteProduct {
+    background-color: #b92f2f;
+}
+
+.deleteProduct:hover {
+    background-color: #de3c3c;
+}

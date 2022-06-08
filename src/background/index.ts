@@ -38,14 +38,14 @@ function check() {
       console.log(price);
     } else {
       console.log(
-        "I couldn't find price, Maybe html elements is changed by server."
+        "I couldn't find price, Maybe html elements is changed by the server."
       );
     }
   }
   function sendPriceToPopup() {
     //communication with popup script
     chrome.runtime.onConnect.addListener(function(port) {
-      console.log("Connected ...");
+      console.log("Connectedxx ...");
       port.onMessage.addListener(function(msg) {
         console.log("message received from popup: " + msg);
         port.postMessage("The price of the tracked product: " + price);
