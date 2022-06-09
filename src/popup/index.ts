@@ -27,6 +27,40 @@ const deleteProductButton = document.getElementById(
   "deleteProduct"
 ) as HTMLElement;
 deleteProductButton.addEventListener("click", deleteProduct);
+const listUlGreeter: HTMLElement = document.getElementById(
+  "products"
+) as HTMLElement;
+
+chrome.runtime.sendMessage({
+  message: "get",
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.message === "get_success") {
+    if (request.payload) {
+      for (let i = 0; i < request.payload.length; i++) {
+        const name = request.payload[i].name;
+        const price = request.payload[i].price;
+        const url = request.payload[i].url;
+
+        const title = document.createElement("ul");
+        const elemName = document.createElement("li");
+        const elemPrice = document.createElement("li");
+        const elemUrl = document.createElement("li");
+
+        title.innerHTML = `${i + 1}:      🐧 👇🏻  ---------🧛🏽---------   🐧 👇🏻`;
+        elemName.innerHTML = name;
+        elemPrice.innerHTML = price;
+        elemUrl.innerHTML = url;
+
+        listUlGreeter.appendChild(title);
+        listUlGreeter.appendChild(elemName);
+        listUlGreeter.appendChild(elemPrice);
+        listUlGreeter.appendChild(elemUrl);
+      }
+    }
+  }
+});
 
 //communication with content script
 // update the relevant fields with the new data.
@@ -92,10 +126,24 @@ port.onMessage.addListener(function(msg) {
 //{{{
 //button and dom properties
 function addProduct() {
+  chrome.runtime.sendMessage({
+    message: "insert",
+    payload: [
+      {
+        name: productNameGreeter.innerText,
+        price: productPriceGreeter.innerText,
+        url: productURLGreeter.innerText,
+      },
+    ],
+  });
   disableAddProductButton();
   addProductButton.innerText = "Product added!".toUpperCase();
 }
 function deleteProduct() {
+  chrome.runtime.sendMessage({
+    message: "delete",
+    payload: productURLGreeter.innerText,
+  });
   disableDeleteProductButton();
   deleteProductButton.innerText = "Product deleted!".toUpperCase();
 }
@@ -103,7 +151,6 @@ function removeElements() {
   addProductButton.remove();
   deleteProductButton.remove();
   productPriceGreeter.remove();
-  productDiscountGreeter.remove();
   productURLGreeter.remove();
   statusGreeter.remove();
 }

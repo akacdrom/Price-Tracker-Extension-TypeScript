@@ -12,7 +12,9 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   ) {
     const getProductPrice = () => {
       const tag = document.querySelector("div.regular-price") as HTMLDivElement;
-      return tag.innerText;
+      tag.innerText = tag.innerText.replace("PLN", "").trim();
+      const price = parseFloat(tag.innerText) as number;
+      return Math.ceil(price);
     };
     const getProductName = () => {
       const tag = document.querySelector("h1.product-name") as HTMLTitleElement;
@@ -32,9 +34,9 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
 
     // Collect the necessary data.
     domInfo = {
-      productName: `${productName}`,
-      productPrice: `Price: ${productPrice}`,
-      productURL: `URL: ${productURL}`,
+      productName: productName,
+      productPrice: productPrice,
+      productURL: productURL,
       status: `We are in the shop page 😎`,
     };
   } else {
