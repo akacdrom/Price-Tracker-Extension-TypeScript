@@ -67,7 +67,7 @@ function check() {
   function sendPriceToPopup() {
     //communication with popup script
     chrome.runtime.onConnect.addListener(function(port) {
-      console.log("Connectedxx ...");
+      console.log("Connected ...");
       port.onMessage.addListener(function(msg) {
         console.log("message received from popup: " + msg);
         port.postMessage("The price of the tracked product: " + price);

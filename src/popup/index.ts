@@ -144,6 +144,7 @@ function deleteProduct() {
     message: "delete",
     payload: productURLGreeter.innerText,
   });
+  productDiscountGreeter.innerText = "No product in track"
   disableDeleteProductButton();
   deleteProductButton.innerText = "Product deleted!".toUpperCase();
 }

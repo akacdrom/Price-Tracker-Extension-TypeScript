@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     msg.subject === "DOMInfo"
   ) {
     const getProductPrice = () => {
-      const tag = document.querySelector("div.regular-price") as HTMLDivElement;
+      const tag = document.querySelector("div.final-price-wrapper") as HTMLDivElement;
       tag.innerText = tag.innerText.replace("PLN", "").trim();
       const price = parseFloat(tag.innerText) as number;
       return Math.ceil(price);
